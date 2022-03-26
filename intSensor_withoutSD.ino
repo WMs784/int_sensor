@@ -10,15 +10,16 @@
 
 using namespace std;
 
-#define length 20
-#define width 10
-#define det_dis 10
-char cur_x = length/2, cur_y = width/2;
-char tg_x = 0,tg_y = 0;
-char field_map[length][width];
+#define length 20 //地図の縦の長さ
+#define width 10 //地図の横の長さ
+#define det_dis 10 //障害物の幅(排除する円領域の半径)
+char cur_x = length/2, cur_y = width/2;//初期の現在地，これはどうしよう
+char tg_x = 0,tg_y = 0;//移動目標値
+char field_map[length][width];//障害物記録用の地図
 const sint dx[4] = {0,1,0,-1}, dy[4] = {1,0,-1,0};
 bool seen[length][width];
 queue<sint> que;
+//↑経路探索に使う奴ら
 
 //map 0:障害物なし,1:未探査,2:障害物あり 
 
@@ -32,7 +33,6 @@ void set_map(float r,float theta){
             else if((cur_x-i)*(cur_x-i) + (cur_y-j)*(cur_y-j) < det_dis*det_dis && field_map[i][j] != 2)field_map[i][j] = 0;
         }
     }
-    // field_map[cur_x][cur_y] = 100;
 }
 sint bfs(){
     while (!que.empty()){
@@ -79,32 +79,34 @@ float move_deg(sint cur,sint goal){
 }
 
 void scan(){
-    float r1 = 10.0,r2 = 10.0, theta1 = 30.0, theta2 = 30.0;//本来は超音波センサから取得した値が入る
+    float r1 = 10.0,r2 = 10.0, theta1 = 30.0, theta2 = 30.0;//超音波センサから取得した値が入る
     sint div = 15;
     rep(i,180/div){
         Serial.print(i);
         Serial.println(" times search");
-        right_rotate(div);
-        r1 = dis1();
+        delay(1000);
+        right_rotate(div);//回転
+        digitalWrite(WHITE, HIGH);//計算&計測を始めたらLEDを点灯
+        delay(1000);
+        r1 = dis1();//前の超音波センサから値を取得
         Serial.println(r1);
         set_map(r1,i*div);
-        r2 = dis2();
+        r2 = dis2();//後ろの超音波センサから値を取得
         Serial.println(r2);
         set_map(r2,i*div+180);
+        digitalWrite(WHITE, LOW);//計算終了後LED消灯
     }
     que.push(100*cur_x+cur_y);
     cout << bfs() << endl;
-    rep(i,length){
-        rep(j,width)cout << seen[i][j] << ' ';
-        cout << endl;
+    rep(i,length){//経路探査用地図の中身を見る
+        rep(j,width)Serial.print(seen[i][j]);
     }
-    rep(i,length){
-        rep(j,width)cout << field_map[i][j] << ' ';
-        cout << endl;
+    rep(i,length){//障害物記録用地図の中身を見る
+        rep(j,width)Serial.print(field_map[i][j]);
     }
     sint cur = cur_x*100+cur_y;
-    // right_rotate(move_deg());
-    // straight(move_dis());
+    right_rotate(move_deg(cur,find()));
+    straight(move_dis(cur,find()));
 }
 
 sint find(){//次の移動場所を返す関数
@@ -127,7 +129,6 @@ sint find(){//次の移動場所を返す関数
 }
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
   setup_sensors();
 }
@@ -142,16 +143,17 @@ void loop() {
   delay(1000);
   Serial.println("start search");
   scan();
-  digitalWrite(WHITE, LOW);
-  int time = millis();
-  Serial.println(time);
-  delay(1000);
-  sint goal = find();
-  int time2 = millis();
-  digitalWrite(WHITE, HIGH);
-  Serial.println(goal);
-  delay(1000);
-  digitalWrite(WHITE, LOW);
-  Serial.println(time2);
-  Serial.println(dis1());
+//   digitalWrite(WHITE, LOW);
+//   int time = millis();
+//   Serial.println(time);
+//   delay(1000);
+//   sint goal = find();
+//   int time2 = millis();
+//   digitalWrite(WHITE, HIGH);
+//   Serial.println(goal);
+//   delay(1000);
+//   digitalWrite(WHITE, LOW);
+//   Serial.println(time2);
+//   Serial.println(dis1());
+// ↑色々試したやつら
 }
