@@ -106,6 +106,7 @@ void scan(){
     }
     sint cur = cur_x*100+cur_y;
     right_rotate(move_deg(cur,find()));
+    myservo.write(0);   
     straight(move_dis(cur,find()));
 }
 
