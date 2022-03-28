@@ -132,14 +132,17 @@ sint find(){//次の移動場所を返す関数
 void setup() {
   Serial.begin(9600);
   setup_sensors();
+  Serial.println("complete setup sensors");
 }
 
 void loop() {
+  digitalWrite(BLUE, HIGH);
   myservo.write(0);     //プーリー下げる
 //   straight(10);         //直進
 //   digitalWrite(WHITE, LOW);
 //   digitalWrite(WHITE, HIGH);
   delay(1000);
+  digitalWrite(BLUE, LOW);
   myservo.write(70);    //プーリー上げる
   delay(1000);
   Serial.println("start search");

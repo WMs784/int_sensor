@@ -11,4 +11,5 @@ void set_led();
 void set_led(){
   pinMode(WHITE, OUTPUT);
   pinMode(BLUE, OUTPUT);
+  Serial.println("set led");
 }

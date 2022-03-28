@@ -14,6 +14,7 @@ void set_ult_snc(){
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin1, INPUT);
   pinMode(echoPin2, INPUT);
+  Serial.println("set ult");
 }
 float dis1(){
   rep(i,6) {

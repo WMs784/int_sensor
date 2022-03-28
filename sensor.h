@@ -14,5 +14,4 @@ void setup_sensors(){
     setup_motor();
     set_rot_enc();
     set_ult_snc();
-    setup_qmc5883();
 }

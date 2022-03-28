@@ -15,6 +15,7 @@
 #define motor22 5
 #define PWMa A4
 #define PWMb A3
+#define PW_QMC 4
 #define pinA 7
 #define pinB 8
 // #define echoPin1 = A0; //前方
@@ -69,10 +70,13 @@ void setup_motor() {
   pinMode(motor12, OUTPUT);
   pinMode(motor21, OUTPUT);
   pinMode(motor22, OUTPUT);
-  pinMode(PWMa, OUTPUT);
-  pinMode(PWMb, OUTPUT);
   pinMode (pinA, INPUT);
   pinMode (pinB, INPUT);
+  pinMode(PWMb, OUTPUT);
+  pinMode(PWMa, OUTPUT);
+  pinMode(PW_QMC, OUTPUT);
+  // pinMode(LED, OUTPUT);
+  Serial.println("set motor");
 }
 
 void straight( int l ) {

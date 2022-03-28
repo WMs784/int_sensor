@@ -9,4 +9,5 @@ void set_rot_enc(){
   pinMode (pinA, INPUT);
   pinMode (pinB, INPUT);
   pinALast = digitalRead(pinA);
+  Serial.println("set rot");
 }

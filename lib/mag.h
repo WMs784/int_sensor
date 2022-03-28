@@ -13,7 +13,7 @@
 // const int PWM = A5;
 #define PWMa A4
 #define PWMb A3
-#define PWM_QMC 4
+#define PW_QMC 4
 int minX = 0;
 int maxX = 0;
 int minY = 0;
@@ -149,46 +149,6 @@ DFRobot_QMC5883 compass;
 //   delay(1000);
 //   Serial.println("while done");
 // }
-int dummy_qmc() {
-  digitalWrite(PW_QMC, HIGH);
-  int theta;
-  delay(1000);
-  minX = 0;
-  maxX = 0;
-  minY = 0;
-  maxY = 0;
-  offX = 0;
-  offY = 0;
-  setup_qmc5883();
-  theta = qmc5883();
-  return theta;
-  digitalWrite(PW_QMC, LOW);
-}
-
-void setup_motor() {
-  pinMode(motor11, OUTPUT);
-  pinMode(motor12, OUTPUT);
-  pinMode(motor21, OUTPUT);
-  pinMode(motor22, OUTPUT);
-  pinMode (pinA, INPUT);
-  pinMode (pinB, INPUT);
-  pinMode(PWMb, OUTPUT);
-  pinMode(PWMa, OUTPUT);
-  pinMode(PW_QMC, OUTPUT);
-  pinMode(LED, OUTPUT);
-  Serial.println("setup done");
-}
-
-void setup_qmc5883() {
-  compass.begin();
-  if (compass.isQMC()) {
-    compass.setRange(QMC5883_RANGE_2GA);
-    compass.setMeasurementMode(QMC5883_CONTINOUS);
-    compass.setDataRate(QMC5883_DATARATE_50HZ);
-    compass.setSamples(QMC5883_SAMPLES_8);
-  }
-}
-
 int qmc5883() {
   float X = 0;
   float Y = 0;
@@ -205,6 +165,46 @@ int qmc5883() {
 
   return theta ;
 }
+void setup_qmc5883() {
+  compass.begin();
+  if (compass.isQMC()) {
+    compass.setRange(QMC5883_RANGE_2GA);
+    compass.setMeasurementMode(QMC5883_CONTINOUS);
+    compass.setDataRate(QMC5883_DATARATE_50HZ);
+    compass.setSamples(QMC5883_SAMPLES_8);
+  }
+}
+
+int dummy_qmc() {
+  digitalWrite(PW_QMC, HIGH);
+  int theta;
+  delay(1000);
+  minX = 0;
+  maxX = 0;
+  minY = 0;
+  maxY = 0;
+  offX = 0;
+  offY = 0;
+  setup_qmc5883();
+  theta = qmc5883();
+  return theta;
+  digitalWrite(PW_QMC, LOW);
+}
+
+// void setup_motor() {
+//   pinMode(motor11, OUTPUT);
+//   pinMode(motor12, OUTPUT);
+//   pinMode(motor21, OUTPUT);
+//   pinMode(motor22, OUTPUT);
+//   pinMode (pinA, INPUT);
+//   pinMode (pinB, INPUT);
+//   pinMode(PWMb, OUTPUT);
+//   pinMode(PWMa, OUTPUT);
+//   pinMode(PW_QMC, OUTPUT);
+//   // pinMode(LED, OUTPUT);
+//   Serial.println("setup done");
+// }
+
 void right_rotate( long int kakudo ) {
   bool success = false;
   int theta0 = dummy_qmc();
@@ -302,21 +302,21 @@ void right_rotate( long int kakudo ) {
     break;
   }
   if (success) {
-    digitalWrite(LED, LOW);
-    delay(1000);
-    digitalWrite(LED, LOW);
-    delay(1000);
-    digitalWrite(LED, HIGH);
-    delay(1000);
-    digitalWrite(LED, LOW);
-    delay(1000);
-    digitalWrite(LED, HIGH);
-    delay(1000);
-    digitalWrite(LED, LOW);
-    delay(1000);
-    digitalWrite(LED, HIGH);
-    delay(1000);
-    digitalWrite(LED, LOW);
+    // digitalWrite(LED, LOW);
+    // delay(1000);
+    // digitalWrite(LED, LOW);
+    // delay(1000);
+    // digitalWrite(LED, HIGH);
+    // delay(1000);
+    // digitalWrite(LED, LOW);
+    // delay(1000);
+    // digitalWrite(LED, HIGH);
+    // delay(1000);
+    // digitalWrite(LED, LOW);
+    // delay(1000);
+    // digitalWrite(LED, HIGH);
+    // delay(1000);
+    // digitalWrite(LED, LOW);
   }
   else {
     digitalWrite(motor11, LOW);
