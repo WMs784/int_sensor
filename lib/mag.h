@@ -209,12 +209,13 @@ void right_rotate( long int kakudo ) {
   bool success = false;
   int theta0 = dummy_qmc();
   int theta = theta0;
-  signed long times = millis();
+  // while(true){
+  unsigned long times = millis();
   while (millis() - times < 90000) {
     theta = dummy_qmc();
     long int difference = theta0 + kakudo - theta;
     kakudo = difference;
-    delay(300);
+    delay(100);
     digitalWrite(motor11, HIGH);
     digitalWrite(motor22, LOW);
     digitalWrite(motor12, LOW);
@@ -222,7 +223,7 @@ void right_rotate( long int kakudo ) {
     analogWrite( PWMb, 200 );
     analogWrite( PWMa, 230 );
     Serial.println("motor done");
-    delay( 100 );
+    delay( 200 );
     digitalWrite(motor11, LOW);
     digitalWrite(motor21, LOW);
     analogWrite( PWMb, 40 );
@@ -245,14 +246,14 @@ void right_rotate( long int kakudo ) {
     Serial.println(delta);
 
     //補正
-    while (abs(difference) > 5) {
+    while (difference > 3 | difference < -2) {
       delay(200);
       theta = dummy_qmc();
       if (theta < theta0 - 20) {
         theta = theta + 360;
         Serial.print("theta modified");
       }
-      delay(300);
+      delay(100);
       difference = theta0 + kakudo - theta;
       while (abs(difference) > 90) {
         theta = dummy_qmc();
@@ -301,6 +302,7 @@ void right_rotate( long int kakudo ) {
     break;
   }
   if (success) {
+    // break;
     // digitalWrite(LED, LOW);
     // delay(1000);
     // digitalWrite(LED, LOW);
@@ -330,6 +332,7 @@ void right_rotate( long int kakudo ) {
     analogWrite( PWMb, 40 );
     analogWrite( PWMa, 80 );
   }
+  // }
 }
 
 // void setup() {

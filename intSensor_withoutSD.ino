@@ -81,10 +81,16 @@ float move_deg(sint cur,sint goal){
 void scan(){
     float r1 = 10.0,r2 = 10.0, theta1 = 30.0, theta2 = 30.0;//超音波センサから取得した値が入る
     sint div = 15;
+    delay(100);
+    sint init_div = dummy_qmc();
     rep(i,180/div){
+        delay(100);
+        sint cur_div = dummy_qmc();
         Serial.print(i);
         Serial.println(" times search");
         delay(1000);
+        div = init_div + 15*(i+1) - cur_div;
+        Serial.println(div);
         right_rotate(div);//回転
         digitalWrite(WHITE, HIGH);//計算&計測を始めたらLEDを点灯
         delay(1000);
