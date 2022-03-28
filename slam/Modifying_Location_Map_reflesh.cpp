@@ -21,7 +21,7 @@ void MOD_LOC_Map_reflesh_main(short int loc[2]){//引数はx座標y座標の配�
     setup_qmc5883();//磁気センサーセットアップ。変数が多いのでいちいちセットアップする
     short int theta_now;//現在のローバーから見た磁北線の角
     theta_now=qmc5883();
-    short int theta_C_first;//
+    short int theta_C_first;
     theta_C_first=(-theta_now/7.5)%48;//最初に距離を測る角度のインデント
     for(theta_C=0;theta_C<48;theta_C++){//角度を刻みながら左回転し超音波センサーの距離をＤ[]に格納
         turn_to_theta(round((theta_C_first+theta_C)*7.5-3.75));
