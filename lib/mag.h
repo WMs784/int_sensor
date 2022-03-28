@@ -214,7 +214,7 @@ void right_rotate( long int kakudo ) {
     theta = dummy_qmc();
     long int difference = theta0 + kakudo - theta;
     kakudo = difference;
-    delay(1000);
+    delay(300);
     digitalWrite(motor11, HIGH);
     digitalWrite(motor22, LOW);
     digitalWrite(motor12, LOW);
@@ -222,18 +222,17 @@ void right_rotate( long int kakudo ) {
     analogWrite( PWMb, 200 );
     analogWrite( PWMa, 230 );
     Serial.println("motor done");
-    delay( 300 );
+    delay( 100 );
     digitalWrite(motor11, LOW);
     digitalWrite(motor21, LOW);
     analogWrite( PWMb, 40 );
     analogWrite( PWMa, 80 );
 
-    delay(1000);
+    delay(300);
 
     //角度測定
-    delay(1000);
     theta = dummy_qmc();
-    delay(500);
+    delay(100);
     if (theta < theta0 - 20) {
       theta = theta + 360;
       Serial.print("theta modified");
@@ -247,13 +246,13 @@ void right_rotate( long int kakudo ) {
 
     //補正
     while (abs(difference) > 5) {
-      delay(500);
+      delay(200);
       theta = dummy_qmc();
       if (theta < theta0 - 20) {
         theta = theta + 360;
         Serial.print("theta modified");
       }
-      delay(1000);
+      delay(300);
       difference = theta0 + kakudo - theta;
       while (abs(difference) > 90) {
         theta = dummy_qmc();
