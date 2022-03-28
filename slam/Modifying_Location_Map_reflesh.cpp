@@ -4,10 +4,10 @@ main関数、引数は(ロリコンから判明した現在地X,ロリコンか�
 #include‥<math.h>,<Wire.h>,<DFRobot_QMC5883.h>,<Servo.h>
 setup‥serial.begin(9600)
 */
-#include <math.h>
-#include <Wire.h>
-#include <DFRobot_QMC5883.h>
-#include <Servo.h>
+#include "math.h"
+#include "Wire.h"
+#include "DFRobot_QMC5883.h"
+#include "Servo.h"
 
 void MOD_LOC_Map_reflesh_main(short int loc[2]){//引数はx座標y座標の配列。戻り値格納にも使用。setup_qmc5883,qmc_5883,turn_to_theta,ultrasonic_behind,MOD_LOC,map_reforming,maxが必要
     char D_raw[48];
